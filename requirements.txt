@@ -1,0 +1,6 @@
+selene>=2.0.0b16
+pytest>=7.2.0
+allure-pytest>=2.9.45
+requests
+voluptuous
+pytest-voluptuous
