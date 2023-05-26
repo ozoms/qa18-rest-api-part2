@@ -7,24 +7,24 @@ browser.config.base_url = WEB_URL_DEMOSHOP
 
 
 def test_login(demoshop_management):
-    browser.open('')
+    demoshop_management.open('')
 
-    browser.element('.account').should(have.text(LOGIN))
+    demoshop_management.element('.account').should(have.text(LOGIN))
 
 
 def test_customer_info(demoshop_management):
-    browser.open('customer/info')
+    demoshop_management.open('customer/info')
 
-    browser.element(f'[value="{LOGIN}"]').should(be.visible)
+    demoshop_management.element(f'[value="{LOGIN}"]').should(be.visible)
 
 
 def test_cart(demoshop_management):
-    browser.open('cart')
+    demoshop_management.open('cart')
 
-    browser.element('.product-name').should(have.text('Computing and Internet'))
+    demoshop_management.element('.product-name').should(have.text('Computing and Internet'))
 
 
 def test_catalog_books(demoshop_management):
-    browser.open('books')
+    demoshop_management.open('books')
 
-    browser.element('.page-title').should(have.text('Books'))
+    demoshop_management.element('.page-title').should(have.text('Books'))

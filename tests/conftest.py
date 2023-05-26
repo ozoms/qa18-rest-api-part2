@@ -18,15 +18,20 @@ def reqres():
     return BaseSession(API_URL_REQRES)
 
 
-@pytest.fixture(scope='function')
-def demoshop_management():
-    browser.config.base_url = WEB_URL_DEMOSHOP
+@pytest.fixture(scope='session')
+def demosh():
     demoshop = BaseSession(API_URL_DEMOSHOP)
     demoshop.post('login', json={'Email': LOGIN, 'Password': PASSWORD}, allow_redirects=False)
     authorization_cookie = demoshop.cookies.get('NOPCOMMERCE.AUTH')
-    browser.open('Themes/DefaultClean/Content/images/logo.png')
-    browser.driver.add_cookie({'name': 'NOPCOMMERCE.AUTH', 'value': authorization_cookie})
+    return authorization_cookie
 
-    yield
+
+@pytest.fixture(scope='function')
+def demoshop_management(demosh):
+    browser.config.base_url = WEB_URL_DEMOSHOP
+    browser.open('Themes/DefaultClean/Content/images/logo.png')
+    browser.driver.add_cookie({'name': 'NOPCOMMERCE.AUTH', 'value': demosh})
+
+    yield browser
 
     browser.quit()
